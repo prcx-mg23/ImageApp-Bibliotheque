@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.net.URL;
 public class ImageController {
     @FXML
     private ImageView imageView;
@@ -16,7 +17,6 @@ public class ImageController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image");
         //
-
          //
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif")
