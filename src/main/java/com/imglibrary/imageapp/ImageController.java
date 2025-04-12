@@ -28,4 +28,54 @@ public class ImageController {
             imageView.setImage(image);
         }
     }
+
+    @FXML
+    private void rotation_90() {
+        Image currentImage = imageView.getImage();
+        if (currentImage != null) {
+            TransformationRotation rotation90 = new TransformationRotation(90);
+            Image imageMirroir = rotation90.transform(currentImage);
+            imageView.setImage(imageMirroir);
+        }
+    }
+
+    @FXML
+    private void rotation_180() {
+        Image currentImage = imageView.getImage();
+        if (currentImage != null) {
+            TransformationRotation rotation180 = new TransformationRotation(180);
+            Image imageMirroir = rotation180.transform(currentImage);
+            imageView.setImage(imageMirroir);
+        }
+    }
+
+    @FXML
+    private void rotation_270() {
+        Image currentImage = imageView.getImage();
+        if (currentImage != null) {
+            TransformationRotation rotation270 = new TransformationRotation(270);
+            Image imageMirroir = rotation270.transform(currentImage);
+            imageView.setImage(imageMirroir);
+        }
+    }
+
+    @FXML
+    private void HorizontalSymetry() {
+        Image currentImage = imageView.getImage();
+        if (currentImage != null) {
+            TransformationSymetrie horizontalSymetry = new TransformationSymetrie(TransformationSymetrie.SymetryType.HORIZONTAL);
+            Image imageMirroir = horizontalSymetry.transform(currentImage);
+            imageView.setImage(imageMirroir);
+        }
+    }
+
+    @FXML
+    private void VerticalSymetry() {
+        Image currentImage = imageView.getImage();
+        if (currentImage != null) {
+            TransformationSymetrie verticalSymetry = new TransformationSymetrie(TransformationSymetrie.SymetryType.VERTICAL);
+            Image imageMirroir = verticalSymetry.transform(currentImage);
+            imageView.setImage(imageMirroir);
+        }
+    }
 }

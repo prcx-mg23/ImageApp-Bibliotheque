@@ -6,7 +6,7 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
-public abstract  class ImageTransformationAbstract implements ImageTransformation {
+public abstract class ImageTransformationAbstract implements ImageTransformation {
     protected WritableImage createWritableImage(Image image) {
         int width = (int) image.getWidth();
         int height = (int) image.getHeight();
