@@ -8,27 +8,35 @@
 <?import javafx.geometry.Insets?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.imglibrary.imageapp.ImageController">
-    <center>
-        <ImageView fx:id="imageView" fitWidth="400" preserveRatio="true"/>
-    </center>
-    <bottom>
-        <VBox spacing="10" style="-fx-padding: 10; -fx-alignment: center;">
+    <top>
+        <VBox spacing="10" style="-fx-padding: 10; -fx-alignment: center; -fx-background-color: #f8f8f8; -fx-border-bottom: 1px solid #d4d4d4;">
             <Button text="Choisir une image" onAction="#onChooseImage"
-                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px; -fx-border-radius: 5px;"/>
+                    style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
             <HBox spacing="10" alignment="center">
-                <Button text="Rotate 90°" onAction="#rotation_90"
-                        style="-fx-background-color: #008CBA; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px; -fx-border-radius: 5px;"/>
-                <Button text="Rotate 180°" onAction="#rotation_180"
-                        style="-fx-background-color: #008CBA; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px; -fx-border-radius: 5px;"/>
-                <Button text="Rotate 270°" onAction="#rotation_270"
-                        style="-fx-background-color: #008CBA; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px; -fx-border-radius: 5px;"/>
-            </HBox>
-            <HBox spacing="10" alignment="center">
+                <Button text="Tourner à 90°" onAction="#rotation_90"
+                        style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
+                <Button text="Tourner à 180°" onAction="#rotation_180"
+                        style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
+                <Button text="Tourner à 270°" onAction="#rotation_270"
+                        style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
                 <Button text="Symétrie Horizontale" onAction="#HorizontalSymetry"
-                        style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px; -fx-border-radius: 5px;"/>
+                        style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
                 <Button text="Symétrie Verticale" onAction="#VerticalSymetry"
-                        style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px; -fx-border-radius: 5px;"/>
+                        style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
+                <Button text="Swap R/B/G" onAction="#applyFiltreSwapRgb"
+                        style="-fx-background-color: #ffc107; -fx-text-fill: #212529; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
+                <Button text="Noir et Blanc" onAction="#applyFiltreNB"
+                        style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
+                <Button text="Sépia" onAction="#applyFiltreSepia"
+                        style="-fx-background-color: #a0522d; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
+                <Button text="Sobel" onAction="#applyFiltreSobel"
+                        style="-fx-background-color: #343a40; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
             </HBox>
         </VBox>
+    </top>
+    <center>
+        <ImageView fx:id="imageView" fitWidth="600" fitHeight="500" preserveRatio="true"/>
+    </center>
+    <bottom>
     </bottom>
 </BorderPane>

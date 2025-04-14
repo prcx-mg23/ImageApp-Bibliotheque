@@ -8,6 +8,7 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Paths;
 public class ImageController {
     @FXML
     private ImageView imageView;
@@ -17,7 +18,21 @@ public class ImageController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image");
         //
-         //
+        // Définir le répertoire initial du FileChooser sur le dossier "resources"
+        // Définir le répertoire initial du FileChooser sur le dossier "resources"
+        URL resourcesUrl = getClass().getResource("/com/imglibrary/imgapp/");
+        if (resourcesUrl != null) {
+            try {
+                File resourcesDirectory = Paths.get(resourcesUrl.toURI()).toFile();
+                fileChooser.setInitialDirectory(resourcesDirectory);
+            } catch (Exception e) {
+                e.printStackTrace();
+                // En cas d'erreur, on laisse le FileChooser s'ouvrir à son emplacement par défaut
+                System.err.println("Erreur lors de la récupération du répertoire resources : " + e.getMessage());
+            }
+        }
+
+        //
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif")
         );
@@ -76,6 +91,42 @@ public class ImageController {
             TransformationSymetrie verticalSymetry = new TransformationSymetrie(TransformationSymetrie.SymetryType.VERTICAL);
             Image imageMirroir = verticalSymetry.transform(currentImage);
             imageView.setImage(imageMirroir);
+        }
+    }
+
+    @FXML
+    private void applyFiltreSwapRgb() {
+        Image currentImage = imageView.getImage();
+        if (currentImage != null) {
+            FiltreSwapRgb filtre = new FiltreSwapRgb();
+            imageView.setImage(filtre.apply(currentImage));
+        }
+    }
+
+    @FXML
+    private void applyFiltreNB() {
+        Image currentImage = imageView.getImage();
+        if (currentImage != null) {
+            FiltreNoirBlanc filtre = new FiltreNoirBlanc();
+            imageView.setImage(filtre.apply(currentImage));
+        }
+    }
+
+    @FXML
+    private void applyFiltreSepia() {
+        Image currentImage = imageView.getImage();
+        if (currentImage != null) {
+           FiltreSepia filtre = new FiltreSepia();
+            imageView.setImage(filtre.apply(currentImage));
+        }
+    }
+
+    @FXML
+    private void applyFiltreSobel() {
+        Image currentImage = imageView.getImage();
+        if (currentImage != null) {
+            FiltreSobel filtre = new FiltreSobel();
+            imageView.setImage(filtre.apply(currentImage));
         }
     }
 }
