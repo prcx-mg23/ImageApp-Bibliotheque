@@ -10,7 +10,7 @@ public class ImageAppMain extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("ImageApp.fxml"));
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, 900, 600);
         stage.setTitle("Bibliothèque d'images");
         stage.setScene(scene);
         stage.show();

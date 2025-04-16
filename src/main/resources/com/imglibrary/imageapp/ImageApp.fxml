@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.imglibrary.imageapp.ImageController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.imglibrary.imageapp.ImageController" stylesheets="@appStyle.css">
+
     <top>
-        <VBox spacing="10" style="-fx-padding: 10; -fx-alignment: center; -fx-background-color: #f8f8f8; -fx-border-bottom: 1px solid #d4d4d4;">
-            <Button text="Choisir une image" onAction="#onChooseImage"
-                    style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10px 20px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
-            <HBox spacing="10" alignment="center">
-                <Button text="Tourner à 90°" onAction="#rotation_90"
-                        style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
-                <Button text="Tourner à 180°" onAction="#rotation_180"
-                        style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
-                <Button text="Tourner à 270°" onAction="#rotation_270"
-                        style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
-                <Button text="Symétrie Horizontale" onAction="#HorizontalSymetry"
-                        style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
-                <Button text="Symétrie Verticale" onAction="#VerticalSymetry"
-                        style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
-                <Button text="Swap R/B/G" onAction="#applyFiltreSwapRgb"
-                        style="-fx-background-color: #ffc107; -fx-text-fill: #212529; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
-                <Button text="Noir et Blanc" onAction="#applyFiltreNB"
-                        style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
-                <Button text="Sépia" onAction="#applyFiltreSepia"
-                        style="-fx-background-color: #a0522d; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
-                <Button text="Sobel" onAction="#applyFiltreSobel"
-                        style="-fx-background-color: #343a40; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8px 15px; -fx-border-radius: 5px; -fx-cursor: hand;"/>
-            </HBox>
+        <VBox spacing="10" styleClass="top-bar">
+        <HBox spacing="10" styleClass="top-bar">
+            <Button text="Choisir une image" onAction="#onChooseImage" styleClass="btn"/>
+        </HBox>
+        <HBox spacing="10" styleClass="top-bar">
+            <Button text="Tourner 90°" onAction="#rotation_90" styleClass="btn"/>
+            <Button text="Tourner 180°" onAction="#rotation_180" styleClass="btn"/>
+            <Button text="Symétrie H" onAction="#HorizontalSymetry" styleClass="btn"/>
+            <Button text="Symétrie V" onAction="#VerticalSymetry" styleClass="btn"/>
+            <Button text="Swap R/G/B" onAction="#applyFiltreSwapRgb" styleClass="btn"/>
+            <Button text="N/B" onAction="#applyFiltreNB" styleClass="btn"/>
+            <Button text="Sépia" onAction="#applyFiltreSepia" styleClass="btn"/>
+            <Button text="Sobel" onAction="#applyFiltreSobel" styleClass="btn"/>
+
+        </HBox>
         </VBox>
     </top>
+    <left>
+        <VBox spacing="15" styleClass="sidebar">
+            <Label text="Métadonnées de l'image" styleClass="sidebar-title"/>
+            <TextField promptText="Ajouter un tag..." />
+        </VBox>
+    </left>
+
     <center>
-        <ImageView fx:id="imageView" fitWidth="600" fitHeight="500" preserveRatio="true"/>
+        <HBox alignment="center" spacing="20" style="-fx-padding: 20;">
+            <Button fx:id="prevButton" text="←" onAction="#showPreviousImage" styleClass="swip-btn"/>
+            <ImageView fx:id="imageView" fitWidth="500" fitHeight="400" preserveRatio="true" styleClass="image-area"/>
+            <Button fx:id="nextButton" text="→" onAction="#showNextImage" styleClass="swip-btn"/>
+        </HBox>
     </center>
-    <bottom>
-    </bottom>
 </BorderPane>

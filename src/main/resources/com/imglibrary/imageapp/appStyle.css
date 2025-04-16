@@ -1,0 +1,54 @@
+
+.root {
+    -fx-font-family: "Open Sans", sans-serif;
+    -fx-background-color:rgb(34, 34, 34);
+}
+
+.top-bar {
+     -fx-background-color:rgb(50, 50, 50);
+    -fx-padding: 12px;
+    -fx-alignment: center;
+}
+
+
+
+.btn {
+    -fx-background-color:rgb(78, 119, 255);
+    -fx-text-fill:rgb(0,0,0);
+    -fx-font-size: 12px;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.btn:hover {
+    -fx-background-color: rgb(0,0,0);
+     -fx-text-fill:rgb(255,255,255);
+
+}
+
+.sidebar {
+    -fx-background-color:rgb(80, 80, 80);
+    -fx-padding: 15px;
+    -fx-min-width: 200px;
+}
+
+.sidebar-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgb(255,255,255);
+}
+
+.swip-btn {
+    -fx-background-color:rgb(0,0,0);
+    -fx-text-fill: rgb(255,255,255);
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-background-radius:50%;
+    -fx-padding: 10 16;
+    -fx-min-width: 50px;
+   }
+
+.swip-btn:hover {
+   -fx-text-fill: rgb(255,255,255);
+    -fx-background-color:rgb(20,20,20);
+}

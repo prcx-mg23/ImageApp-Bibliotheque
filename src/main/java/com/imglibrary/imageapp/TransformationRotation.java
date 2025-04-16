@@ -44,16 +44,7 @@ public class TransformationRotation extends ImageTransformationAbstract {
                         }
                     }
                     break;
-                case 270:
-                    rotatedImage = new WritableImage(height, width);
-                    pixelWriter = rotatedImage.getPixelWriter();
-                    for (int y = 0; y < height; y++) {
-                        for (int x = 0; x < width; x++) {
-                            Color color = pixelReader.getColor(x, y);
-                            pixelWriter.setColor(height - 1 - y, x, color);
-                        }
-                    }
-                    break;
+
                 case 0:
                 default:
                     return image; // Pas de rotation ou angle non géré pour l'instant

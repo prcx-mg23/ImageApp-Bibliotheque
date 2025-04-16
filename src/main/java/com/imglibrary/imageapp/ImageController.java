@@ -4,35 +4,106 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javafx.stage.FileChooser;
 
-import java.io.File;
-import java.net.URL;
-import java.nio.file.Paths;
 public class ImageController {
+
     @FXML
     private ImageView imageView;
+
+    @FXML
+    private Button prevButton;
+
+    @FXML
+    private Button nextButton;
+
+    private List<File> imageFiles = new ArrayList<>();
+    private int currentImageIndex = 0;
+    private File currentDirectory;
+
+    @FXML
+    public void initialize() {
+        // Disable buttons initially
+        prevButton.setDisable(true);
+        nextButton.setDisable(true);
+
+        loadImagesFromSourceDirectory("/com/imglibrary/imageapp/images"); // Load on startup
+    }
+
+    private void loadImagesFromSourceDirectory(String directoryPath) {
+        try {
+            URL resourcesUrl = getClass().getResource(directoryPath);
+            if (resourcesUrl != null) {
+                currentDirectory = Paths.get(resourcesUrl.toURI()).toFile();
+                loadImageFiles(currentDirectory);
+                if (!imageFiles.isEmpty()) {
+                    displayImage(imageFiles.get(0)); // Show the first image
+                }
+            } else {
+                System.err.println("Directory not found: " + directoryPath);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Error loading images: " + e.getMessage());
+        }
+    }
+
+    private void loadImageFiles(File directory) {
+        imageFiles.clear();
+        File[] files = directory.listFiles((dir, name) -> name.toLowerCase().endsWith(".png") ||
+                name.toLowerCase().endsWith(".jpg") ||
+                name.toLowerCase().endsWith(".jpeg"));
+        if (files != null) {
+            for (File file : files) {
+                imageFiles.add(file);
+            }
+        }
+        currentImageIndex = 0; // Reset index
+        updateButtonVisibility();
+    }
+
+    private void displayImage(File file) {
+        Image image = new Image(file.toURI().toString());
+        imageView.setImage(image);
+        currentImageIndex = imageFiles.indexOf(file);
+        updateButtonVisibility();
+    }
+
+    @FXML
+    private void showPreviousImage() {
+        if (currentImageIndex > 0) {
+            currentImageIndex--;
+            displayImage(imageFiles.get(currentImageIndex));
+        }
+    }
+
+    @FXML
+    private void showNextImage() {
+        if (currentImageIndex < imageFiles.size() - 1) {
+            currentImageIndex++;
+            displayImage(imageFiles.get(currentImageIndex));
+        }
+    }
+
+    private void updateButtonVisibility() {
+        prevButton.setDisable(imageFiles.isEmpty() || currentImageIndex == 0);
+        nextButton.setDisable(imageFiles.isEmpty() || currentImageIndex == imageFiles.size() - 1);
+    }
+
 
     @FXML
     private void onChooseImage() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image");
-        //
-        // Définir le répertoire initial du FileChooser sur le dossier "resources"
-        // Définir le répertoire initial du FileChooser sur le dossier "resources"
-        URL resourcesUrl = getClass().getResource("/com/imglibrary/imgapp/");
-        if (resourcesUrl != null) {
-            try {
-                File resourcesDirectory = Paths.get(resourcesUrl.toURI()).toFile();
-                fileChooser.setInitialDirectory(resourcesDirectory);
-            } catch (Exception e) {
-                e.printStackTrace();
-                // En cas d'erreur, on laisse le FileChooser s'ouvrir à son emplacement par défaut
-                System.err.println("Erreur lors de la récupération du répertoire resources : " + e.getMessage());
-            }
-        }
 
-        //
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif")
         );
@@ -43,7 +114,6 @@ public class ImageController {
             imageView.setImage(image);
         }
     }
-
     @FXML
     private void rotation_90() {
         Image currentImage = imageView.getImage();
@@ -116,7 +186,7 @@ public class ImageController {
     private void applyFiltreSepia() {
         Image currentImage = imageView.getImage();
         if (currentImage != null) {
-           FiltreSepia filtre = new FiltreSepia();
+            FiltreSepia filtre = new FiltreSepia();
             imageView.setImage(filtre.apply(currentImage));
         }
     }
