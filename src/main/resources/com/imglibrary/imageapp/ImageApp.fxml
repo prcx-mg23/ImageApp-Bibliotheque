@@ -6,7 +6,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TextField?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.imglibrary.imageapp.ImageController" stylesheets="@appStyle.css">
@@ -25,14 +24,20 @@
             <Button text="N/B" onAction="#applyFiltreNB" styleClass="btn"/>
             <Button text="Sépia" onAction="#applyFiltreSepia" styleClass="btn"/>
             <Button text="Sobel" onAction="#applyFiltreSobel" styleClass="btn"/>
-
+            <Button text="Chiffrer" onAction="#securiserImage" styleClass="btn"/>
+            <Button text="Déchiffrer" onAction="#dechiffrerImage" styleClass="btn"/>
         </HBox>
         </VBox>
     </top>
     <left>
         <VBox spacing="15" styleClass="sidebar">
             <Label text="Métadonnées de l'image" styleClass="sidebar-title"/>
-            <TextField promptText="Ajouter un tag..." />
+            <TextField fx:id="tagField" promptText="Ajouter un tag..."
+                       style="-fx-pref-width: 300;" />
+            <Button fx:id="addTagButton" text="Ajouter Tag"
+                    style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Button text="Sauvegarder Metadata" onAction="#sauvegarderMetadata"
+                    style="-fx-background-color: #17a2b8; -fx-text-fill: white; -fx-font-weight: bold;" />
         </VBox>
     </left>
 
