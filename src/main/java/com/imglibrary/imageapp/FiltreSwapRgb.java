@@ -7,23 +7,24 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
 
-public class FiltreSwapRgb extends ImageFiltreAbstract{
+public class FiltreSwapRgb extends ImageTransformationAbstract{
 
+    //Filtre Inverser les composant rgb
         @Override
-        public Image apply(Image image) {
-            int width = (int) image.getWidth();
-            int height = (int) image.getHeight();
-            WritableImage outputImage = createWritableImage(image);
-            PixelReader pixelReader = image.getPixelReader();
-            PixelWriter pixelWriter = outputImage.getPixelWriter();
+        public Image transform(Image image) {
+            int width=(int)image.getWidth();
+            int height=(int)image.getHeight();
+            WritableImage outputImage=createWritableImage(image);
+            PixelReader pixelReader=image.getPixelReader();
+            PixelWriter pixelWriter=outputImage.getPixelWriter();
 
-            for (int y = 0; y < height; y++) {
-                for (int x = 0; x < width; x++) {
-                    Color color = getPixelColor(pixelReader, x, y);
-                    double red = color.getRed();
-                    double green = color.getGreen();
-                    double blue = color.getBlue();
-                    Color newColor = new Color(blue, red, green, color.getOpacity());
+            for (int y=0; y<height; y++) {
+                for (int x=0; x<width; x++) {
+                    Color color=getPixelColor(pixelReader, x, y);
+                    double red=color.getRed();
+                    double green=color.getGreen();
+                    double blue=color.getBlue();
+                    Color newColor=new Color(blue, red, green, color.getOpacity());
                     setPixelColor(pixelWriter, x, y, newColor);
                 }
             }

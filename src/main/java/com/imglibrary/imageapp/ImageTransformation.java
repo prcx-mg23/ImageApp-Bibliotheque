@@ -1,7 +1,8 @@
 package com.imglibrary.imageapp;
 
 import javafx.scene.image.Image;
-public interface ImageTransformation {
-        Image transform(Image image);
 
+//Interface pour toutes les transformations (Rotations, Symetries, filtres)
+public interface ImageTransformation{
+        Image transform(Image image);
 }

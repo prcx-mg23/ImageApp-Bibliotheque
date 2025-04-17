@@ -7,49 +7,56 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
 
-public class FiltreSobel extends ImageFiltreAbstract{
+public class FiltreSobel extends ImageTransformationAbstract{
 
-        private final int[][] horizontalKernel = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
-        private final int[][] verticalKernel = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}};
 
-        @Override
-        public Image apply(Image image) {
+        public Image transform(Image image) {
             int width = (int) image.getWidth();
             int height = (int) image.getHeight();
-            WritableImage outputImage = createWritableImage(image);
-            PixelReader pixelReader = image.getPixelReader();
-            PixelWriter pixelWriter = outputImage.getPixelWriter();
 
-            for (int y = 1; y < height - 1; y++) {
-                for (int x = 1; x < width - 1; x++) {
-                    double gxRed = 0, gyRed = 0;
-                    double gxGreen = 0, gyGreen = 0;
-                    double gxBlue = 0, gyBlue = 0;
+            PixelReader reader = image.getPixelReader();
+            WritableImage outputImage = new WritableImage(width, height);
+            PixelWriter writer = outputImage.getPixelWriter();
 
-                    for (int i = -1; i <= 1; i++) {
-                        for (int j = -1; j <= 1; j++) {
-                            Color neighbor = getPixelColor(pixelReader, x + j, y + i);
-                            gxRed += neighbor.getRed() * horizontalKernel[i + 1][j + 1];
-                            gyRed += neighbor.getRed() * verticalKernel[i + 1][j + 1];
-                            gxGreen += neighbor.getGreen() * horizontalKernel[i + 1][j + 1];
-                            gyGreen += neighbor.getGreen() * verticalKernel[i + 1][j + 1];
-                            gxBlue += neighbor.getBlue() * horizontalKernel[i + 1][j + 1];
-                            gyBlue += neighbor.getBlue() * verticalKernel[i + 1][j + 1];
+            int[][] gx={
+                    {-1, 0, 1},
+                    {-2, 0, 2},
+                    {-1, 0, 1}
+            };
+
+            int[][] gy={
+                    {-1, -2, -1},
+                    { 0,  0,  0},
+                    { 1,  2,  1}
+            };
+
+            for (int y=1; y<height-1; y++) {
+                for (int x=1; x<width-1; x++) {
+                    double sumX=0;
+                    double sumY=0;
+
+                    for (int j=-1; j<=1; j++) {
+                        for (int i=-1; i<=1; i++) {
+                            Color color=reader.getColor(x+i, y+j);
+                            double gray=color.grayscale().getRed();
+                            sumX +=gray*gx[j+1][i+1];
+                            sumY +=gray*gy[j+1][i+1];
                         }
                     }
 
-                    double magnitudeRed = Math.sqrt(gxRed * gxRed + gyRed * gyRed);
-                    double magnitudeGreen = Math.sqrt(gxGreen * gxGreen + gyGreen * gyGreen);
-                    double magnitudeBlue = Math.sqrt(gxBlue * gxBlue + gyBlue * gyBlue);
+                    // Calcul du gradient
+                    double gradient=Math.sqrt(sumX*sumX+sumY*sumY);
 
-                    double magnitude = (magnitudeRed + magnitudeGreen + magnitudeBlue) / 3.0;
-                    magnitude = Math.min(1.0, magnitude); // Clamp value
+                    // Normalisation
+                    gradient=Math.min(gradient,1.0); // Clamp entre 0 et 1
 
-                    Color newColor = new Color(magnitude, magnitude, magnitude, 1.0);
-                    setPixelColor(pixelWriter, x, y, newColor);
+                    Color edgeColor=new Color(gradient, gradient, gradient, 1.0);
+                    writer.setColor(x, y, edgeColor);
                 }
             }
+
             return outputImage;
         }
     }
+
 
