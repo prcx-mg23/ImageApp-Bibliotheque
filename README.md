@@ -1,6 +1,5 @@
 # JavaImageManager - Gestionnaire d'Images Sécurisé
-
-Projet réalisé dans le cadre de la licence **L2 Informatique** à l'Université de Limoges (2024-2025). 
+ 
 Cet outil permet de gérer, transformer et sécuriser une bibliothèque d'images via une interface graphique moderne.
 
 ## Objectifs du Projet
